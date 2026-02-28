@@ -58,9 +58,24 @@ npm run dev
 npm run dev
 ```
 
-### 3. Sử dụng
+### 3. Deploy Production
 
-1. Mở trình duyệt và truy cập `http://localhost:5173`.
+Vì ứng dụng sử dụng WebSockets (`Socket.io`) và lưu trữ dữ liệu dạng in-memory (RAM), bạn **BẮT BUỘC** phải host Backend Server ở một nơi có hỗ trợ long-running process (không dùng Vercel/Netlify cho backend được).
+
+**Cách Deploy khuyên dùng:**
+1. **Frontend:** Deploy lên **Vercel**, **Netlify**, hoặc **Cloudflare Pages**.
+2. **Backend Server:** Deploy lên **Render.com**, **Railway.app**, hoặc **DigitalOcean App Platform** (những nơi hỗ trợ Node.js WebSockets liên tục).
+
+**Cấu hình Biến Môi Trường (Environment Variable):**
+Khi deploy Frontend (Vercel), bạn cần thêm biến môi trường sau để Frontend biết kết nối Socket.io tới đâu:
+```env
+VITE_SERVER_URL=https://your-backend-app-name.onrender.com
+```
+*(Thay bằng URL backend thật của bạn. Nếu không set, mặc định nó sẽ gọi `/` - chỉ dùng cho localhost dev).*
+
+### 4. Sử dụng
+
+1. Mở trình duyệt và truy cập ứng dụng.
 2. Hệ thống sẽ tự động tạo một phòng mới và chuyển hướng bạn đến URL dạng: `http://localhost:5173/room/<uuid>`
 3. Bấm nút **"Chia sẻ"** góc trên bên phải để copy link gửi cho bạn bè.
 4. Paste link YouTube vào ô thêm bài hát và quẩy thôi! 🎶

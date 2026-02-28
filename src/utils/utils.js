@@ -46,7 +46,9 @@ export function extractYouTubeId(url) {
 // ============================================================
 export async function fetchYouTubeMeta(videoId) {
     try {
-        const res = await fetch(`/api/youtube-meta?videoId=${videoId}`)
+        // In production on Vercel, this should point to your Node.js backend URL
+        const serverUrl = import.meta.env.VITE_SERVER_URL || ''
+        const res = await fetch(`${serverUrl}/api/youtube-meta?videoId=${videoId}`)
         if (!res.ok) throw new Error('Server meta fetch failed')
         const data = await res.json()
         return {

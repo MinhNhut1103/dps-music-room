@@ -20,7 +20,9 @@ export function SocketProvider({ roomId, children }) {
     useEffect(() => {
         if (!roomId) return
 
-        const socket = io('/', { transports: ['websocket', 'polling'] })
+        // In production on Vercel, this should point to your Node.js backend URL
+        const serverUrl = import.meta.env.VITE_SERVER_URL || '/'
+        const socket = io(serverUrl, { transports: ['websocket', 'polling'] })
         socketRef.current = socket
 
         socket.on('connect', () => {
