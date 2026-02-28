@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+/* ── Brand colors ── */
+:root {
+  --brand: #151577;
+  --brand-hover: #1c1c99;
+  --brand-light: rgba(21, 21, 119, 0.25);
+  --accent: #32B461;
+  --accent-hover: #28a050;
+}
+
+/* ── Custom scrollbar ── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--brand);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--brand-hover);
+}
+
+/* ── Base ── */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #0a0a0f;
+  color: #fff;
+  font-family: 'Inter', system-ui, sans-serif;
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* ── Gradient background ── */
+.app-bg {
+  background:
+    radial-gradient(ellipse at 20% 20%, rgba(21, 21, 119, 0.25) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(50, 180, 97, 0.10) 0%, transparent 50%),
+    #0a0a0f;
+  min-height: 100vh;
+}
+
+/* ── Glass card ── */
+.glass {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
