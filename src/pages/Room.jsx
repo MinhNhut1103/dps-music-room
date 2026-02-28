@@ -4,16 +4,46 @@ import VideoPlayer from '../components/VideoPlayer'
 import QueueList from '../components/QueueList'
 import AddSongForm from '../components/AddSongForm'
 import UsersList from '../components/UsersList'
-import { FaCopy, FaCheck } from 'react-icons/fa'
+import { FaCopy, FaCheck, FaPlay } from 'react-icons/fa'
 
 export default function Room({ roomId }) {
     const { currentUser, connected, queue } = useSocket()
     const [copied, setCopied] = useState(false)
+    const [hasJoined, setHasJoined] = useState(false)
 
     const copyLink = () => {
         navigator.clipboard.writeText(window.location.href)
         setCopied(true)
         setTimeout(() => setCopied(false), 2000)
+    }
+
+    // Ensure user interacts with DOM before loading VideoPlayer to bypass browser autoplay restrictions
+    if (!hasJoined) {
+        return (
+            <div className="app-bg min-h-screen flex items-center justify-center p-4">
+                <div className="glass rounded-2xl p-8 max-w-sm w-full text-center flex flex-col items-center">
+                    <img
+                        src="https://dps.media/wp-content/uploads/2023/08/dpsmedia.svg"
+                        alt="DPS Media"
+                        className="h-10 w-auto mb-6"
+                        style={{ filter: 'brightness(0) invert(1)' }}
+                    />
+                    <h1 className="text-xl font-bold text-white mb-2">Phòng nghe nhạc chung</h1>
+                    <p className="text-gray-400 text-sm mb-8">Trình duyệt yêu cầu tương tác trang để tự khởi động âm thanh.</p>
+
+                    <button
+                        onClick={() => setHasJoined(true)}
+                        className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-white font-semibold shadow-lg transition-all active:scale-95 text-base"
+                        style={{ backgroundColor: '#32B461' }}
+                        onMouseEnter={e => e.currentTarget.style.backgroundColor = '#28a050'}
+                        onMouseLeave={e => e.currentTarget.style.backgroundColor = '#32B461'}
+                    >
+                        <FaPlay className="text-sm" />
+                        Tham gia phòng
+                    </button>
+                </div>
+            </div>
+        )
     }
 
     return (
@@ -39,8 +69,8 @@ export default function Room({ roomId }) {
                     <div className="flex items-center gap-2">
                         {/* Connection indicator */}
                         <div className={`flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-full font-medium ${connected
-                                ? 'text-white bg-[#32B461]/30 border border-[#32B461]/40'
-                                : 'text-white bg-red-600/30 border border-red-500/40'
+                            ? 'text-white bg-[#32B461]/30 border border-[#32B461]/40'
+                            : 'text-white bg-red-600/30 border border-red-500/40'
                             }`}>
                             <span className={`w-1.5 h-1.5 rounded-full ${connected ? 'bg-[#32B461] animate-pulse' : 'bg-red-400'}`} />
                             {connected ? 'Online' : 'Offline'}
